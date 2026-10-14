@@ -38,7 +38,7 @@ open_file_dialog :: proc() -> (string, bool) {
 
 	ofn := windows.OPENFILENAMEW{
 		lStructSize     = size_of(windows.OPENFILENAMEW),
-		lpstrFile       = windows.wstring(&path_buf[0]),
+		lpstrFile       = cast(^u16)(windows.wstring(&path_buf[0])),
 		nMaxFile        = windows.MAX_PATH_WIDE,
 		lpstrTitle      = windows.utf8_to_wstring(title, context.temp_allocator),
 		lpstrFilter     = windows.utf8_to_wstring(filter, context.temp_allocator),
